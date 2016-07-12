@@ -46,22 +46,24 @@ class Solution(object):
 class Solution(object):
     def kSmallestPairs(self, nums1, nums2, k):
         result = []
-        heap = [[0x2ffffff, None, None]]
-        i, j = 0,0
+        heap = [(0x2ffffff, None, None)]
         in1 = 0
         while len(result) < min(k, len(nums1) * len(nums2)):
             # handles the case when k = 0 or nums1 or nums2 is empty
             if in1 < len(nums1):
-                top = heapq.heappop(heap)
-                if nums1[in1] + nums2[0] < top[0]:
+                top = heap[0][0]
+                if nums1[in1] + nums2[0] < top:
                     for num2 in nums2:
-                        heapq.heappush(heap, [nums1[in1] + num2, nums1[in1], num2])
-                currmin = heapq.heappop(heap)
-                result.append([currmin[1], currmin[2]])
-                in1 += 1
+                        heapq.heappush(heap, (nums1[in1] + num2, nums1[in1], num2))
+                    in1 += 1
+            sum, num1, num2 = heapq.heappop(heap)
+            result.append([num1, num2])
         return result
 
-
+   
+        
+        
+        
 
 
 
